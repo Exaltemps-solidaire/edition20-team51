@@ -256,4 +256,13 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - `npm test` passe toujours.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/franceMap.ts` (nouveau, tracé des régions extrait de `fr.svg`), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (13 régions au tracé réel, 3 régions suivies colorées par statut / 10 neutres, `npm test` toujours au vert) — vérifiés via `curl localhost:8080/` : 1 `conforme`, 2 `non-conforme`, 10 `non-suivie` (total 13), attribution simplemaps présente.
+  - **Reporté** : interaction sur la carte (clic/zoom), positions des départements, DOM-TOM — non demandés, hors périmètre.
+  - **Bloqué par le harnais** : rien.
+  - **Modifications** :
+    - `frontend/src/data/franceMap.ts` (nouveau) : tracé (`d`) des 13 régions, extrait du `fr.svg` fourni par le développeur (simplemaps.com, libre pour usage commercial) via un script Python ponctuel (non committé) — sert le critère 1.
+    - `frontend/src/app/page.tsx` : remplace le blob + cercles positionnés approximativement par le rendu des 13 tracés réels, coloration conditionnelle (statut si région suivie, neutre sinon), attribution simplemaps, entrée de légende "Région non suivie" — sert les critères 1 et 2.
+    - `frontend/src/app/page.module.css` : styles `.carteRegion` (remplace `.carteContour`/`.cartePoint`), `.attributionCarte`, `.point[data-statut="non-suivie"]`.
+  - **Note** : le fichier source `fr.svg` (85 Ko) reste non committé à la racine du dépôt — seules les données extraites et attribuées vivent dans le code applicatif.
