@@ -283,4 +283,13 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - Un incident déclaré apparaît dans une liste "Incidents" sur la fiche du terrain, sans rechargement de page.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/incidents.ts` (nouveau), `frontend/src/data/incidents.test.ts` (nouveau), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (formulaire sur la fiche terrain, description vide rejetée avec message d'erreur, incident ajouté à une liste "Incidents" sans rechargement) — vérifiés par lecture du code et `npm test` (4 nouveaux tests sur `incidentEstValide`/`creerIncident`) ; le comportement du formulaire au clic n'est pas vérifiable par `curl` seul (état client), à confirmer par le développeur dans le navigateur.
+  - **Reporté** : suivi et clôture de l'incident (itération 10), annuaire complet des prestataires, écran persona, `e2e/demo.spec.ts`.
+  - **Bloqué par le harnais** : rien.
+  - **Modifications** :
+    - `frontend/src/data/incidents.ts` (nouveau) : types `Incident`/`Urgence`, `incidentEstValide()` (description non vide), `creerIncident()` — sert les critères 1 et 2.
+    - `frontend/src/data/incidents.test.ts` (nouveau) : 4 tests Vitest sur la validation et la création d'incident.
+    - `frontend/src/app/page.tsx` : état `incidents`/formulaire, formulaire de déclaration sur la fiche terrain, liste "Incidents" filtrée par terrain — sert les 3 critères.
+    - `frontend/src/app/page.module.css` : styles du formulaire et du message d'erreur.
