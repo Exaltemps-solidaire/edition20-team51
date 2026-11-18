@@ -239,3 +239,21 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
     - `frontend/src/data/terrains.ts` : ajout du champ optionnel `situationJuridique` sur `Terrain`, renseigné pour les 5 terrains en dur.
     - `frontend/src/app/page.tsx` : état `terrainSelectionne`, lignes de terrain cliquables, vue fiche avec bouton "Retour" — sert les 2 premiers critères.
     - `frontend/src/app/page.module.css` : styles du bouton Retour et de la fiche.
+
+---
+
+## Itération 8 : vraie carte des régions (SVG simplemaps.com), demande du développeur
+
+- **Plan validé** (développeur fournit le SVG `fr.svg`, demande explicite).
+- **Dans le périmètre** :
+  - Remplace la carte SVG simplifiée (blob + cercles) de l'itération 4 par le tracé réel des 13 régions françaises, extrait de `fr.svg` (simplemaps.com, libre pour usage commercial, attribution conservée).
+  - Chaque région présente dans les données (`Auvergne-Rhône-Alpes`, `Grand Est`, `Hauts-de-France`) est colorée selon `statutRegion` ; les régions sans terrain suivi restent dans une couleur neutre (pas de faux "conforme").
+  - Légende et attribution simplemaps visibles sous la carte.
+- **Hors périmètre** : interaction (clic/zoom sur une région), positions des départements, DOM-TOM.
+- **Critères d'acceptation** :
+  - La carte affiche les 13 régions avec leur tracé réel (pas un blob approximatif).
+  - Les 3 régions ayant des terrains suivis sont colorées selon leur statut (vert/orange/rouge) ; les autres régions restent neutres.
+  - `npm test` passe toujours.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/franceMap.ts` (nouveau, tracé des régions extrait de `fr.svg`), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.

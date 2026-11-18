@@ -142,33 +142,39 @@
 
 .carte {
   width: 100%;
-  max-width: 320px;
+  max-width: 420px;
   height: auto;
   display: block;
-  margin: 0 auto 16px;
+  margin: 0 auto 8px;
 }
 
-.carteContour {
+.carteRegion {
   fill: var(--fond-carte);
-  stroke: var(--bordure);
-  stroke-width: 1;
-}
-
-.cartePoint {
-  stroke: #fff;
+  stroke: #ffffff;
   stroke-width: 1.5;
 }
 
-.cartePoint[data-statut="conforme"] {
+.carteRegion[data-statut="conforme"] {
   fill: var(--statut-conforme-texte);
 }
 
-.cartePoint[data-statut="a-surveiller"] {
+.carteRegion[data-statut="a-surveiller"] {
   fill: var(--statut-surveiller-texte);
 }
 
-.cartePoint[data-statut="non-conforme"] {
+.carteRegion[data-statut="non-conforme"] {
   fill: var(--statut-non-conforme-texte);
+}
+
+.attributionCarte {
+  text-align: center;
+  font-size: 12px;
+  color: var(--texte-secondaire);
+  margin-bottom: 16px;
+}
+
+.attributionCarte a {
+  text-decoration: underline;
 }
 
 .pastilles {
@@ -207,6 +213,10 @@
 
 .point[data-statut="non-conforme"] {
   background: var(--statut-non-conforme-texte);
+}
+
+.point[data-statut="non-suivie"] {
+  background: var(--bordure);
 }
 
 .legende {

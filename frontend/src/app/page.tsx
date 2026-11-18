@@ -11,6 +11,7 @@ import {
   filtrerTerrains,
   type Terrain,
 } from "../data/terrains";
+import { REGIONS_CARTE } from "../data/franceMap";
 
 const LIBELLES_STATUT = {
   conforme: "Conforme",
@@ -18,17 +19,7 @@ const LIBELLES_STATUT = {
   "non-conforme": "Non conforme",
 } as const;
 
-// Positions approximatives (pas géographiquement exactes) sur une carte 100x100.
-const POSITION_REGION: Record<string, { x: number; y: number }> = {
-  "Hauts-de-France": { x: 50, y: 12 },
-  "Grand Est": { x: 68, y: 22 },
-  "Île-de-France": { x: 48, y: 28 },
-  "Auvergne-Rhône-Alpes": { x: 62, y: 55 },
-  "Nouvelle-Aquitaine": { x: 32, y: 60 },
-  Occitanie: { x: 45, y: 75 },
-};
-
-const POSITION_PAR_DEFAUT = { x: 50, y: 50 };
+const REGIONS_SUIVIES = new Set(terrains.map((t) => t.region));
 
 export default function Home() {
   const [onglet, setOnglet] = useState<"terrains" | "prestataires">(
@@ -161,31 +152,36 @@ export default function Home() {
         <section className={styles.vueParRegion}>
           <h2>Carte par région</h2>
           <svg
-            viewBox="0 0 100 100"
+            viewBox="0 0 1000 960"
             className={styles.carte}
             role="img"
             aria-label="Carte de France avec le statut de chaque région"
           >
-            <path
-              d="M20,15 L55,5 L80,18 L90,40 L75,60 L85,80 L55,95 L30,88 L10,65 L5,35 Z"
-              className={styles.carteContour}
-            />
-            {regions.map((region) => {
-              const { x, y } = POSITION_REGION[region] ?? POSITION_PAR_DEFAUT;
-              return (
-                <circle
-                  key={region}
-                  cx={x}
-                  cy={y}
-                  r={4}
-                  className={styles.cartePoint}
-                  data-statut={statutRegion(terrains, region)}
-                >
-                  <title>{region}</title>
-                </circle>
-              );
-            })}
+            {REGIONS_CARTE.map(({ id, region, d }) => (
+              <path
+                key={id}
+                d={d}
+                className={styles.carteRegion}
+                data-statut={
+                  REGIONS_SUIVIES.has(region)
+                    ? statutRegion(terrains, region)
+                    : "non-suivie"
+                }
+              >
+                <title>{region}</title>
+              </path>
+            ))}
           </svg>
+          <p className={styles.attributionCarte}>
+            Carte :{" "}
+            <a
+              href="https://simplemaps.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              simplemaps.com
+            </a>
+          </p>
           <div className={styles.pastilles}>
             {regions.map((region) => (
               <span key={region} className={styles.pastilleRegion}>
@@ -209,6 +205,10 @@ export default function Home() {
             <span>
               <span className={styles.point} data-statut="non-conforme" />
               Alerte
+            </span>
+            <span>
+              <span className={styles.point} data-statut="non-suivie" />
+              Région non suivie
             </span>
           </div>
         </section>
