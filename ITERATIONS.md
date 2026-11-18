@@ -69,7 +69,17 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - Les terrains non conformes apparaissent dans un bloc « À traiter en priorité » distinct de la liste par région.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (en-tête vert + badge, 4 cartes de stats cohérentes avec les données, bloc « À traiter en priorité » distinct) — vérifiés via `curl localhost:8080/` après déploiement.
+  - **Reporté** : rien de nouveau pour cette itération ; `e2e/demo.spec.ts` reste reporté (voir itération 1).
+  - **Bloqué par le harnais** : rien — `npm test` et `verifier-deployabilite.sh` passaient déjà avant le signal.
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : ajout de `ville`/`codePostal` sur chaque terrain, des champs optionnels `controleAnnuelEnRetard`/`reparationBloquee`, et de la fonction `statistiques()` — sert le critère 2.
+    - `frontend/src/data/terrains.test.ts` : test Vitest sur `statistiques()`.
+    - `frontend/src/app/page.tsx` : en-tête vert + badge, 4 cartes de stats, bloc « À traiter en priorité » — sert les 3 critères.
+    - `frontend/src/app/page.module.css` : réécriture complète du style (palette verte, cartes, badges de statut) pour coller à la maquette.
+    - `frontend/src/app/globals.css` : reprend la modification déjà en cours (palette de variables CSS), non générée par cette itération.
 
 ---
 
