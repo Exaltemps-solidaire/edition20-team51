@@ -325,6 +325,43 @@
   margin: 12px 0;
 }
 
+.formulaireIncident {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.formulaireIncident select,
+.formulaireIncident textarea {
+  padding: 10px;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.formulaireIncident textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.formulaireIncident button {
+  align-self: flex-start;
+  background: var(--vert-fonce);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.erreurFormulaire {
+  color: var(--statut-non-conforme-texte);
+  font-size: 14px;
+}
+
 .terrainLigne:last-child {
   border-bottom: none;
 }

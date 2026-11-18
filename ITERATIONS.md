@@ -266,3 +266,21 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
     - `frontend/src/app/page.tsx` : remplace le blob + cercles positionnés approximativement par le rendu des 13 tracés réels, coloration conditionnelle (statut si région suivie, neutre sinon), attribution simplemaps, entrée de légende "Région non suivie" — sert les critères 1 et 2.
     - `frontend/src/app/page.module.css` : styles `.carteRegion` (remplace `.carteContour`/`.cartePoint`), `.attributionCarte`, `.point[data-statut="non-suivie"]`.
   - **Note** : le fichier source `fr.svg` (85 Ko) reste non committé à la racine du dépôt — seules les données extraites et attribuées vivent dans le code applicatif.
+
+---
+
+## Itération 9 : déclaration d'incident depuis la fiche terrain
+
+- **Plan validé** (développeur : « très bien, /iteration 9 »). Temps restant annoncé à la question précédente : 1 heure, suffisant pour plusieurs itérations ; celle-ci reste dans le budget standard de 10 minutes de codage.
+- **Dans le périmètre** :
+  - Sur la fiche d'un terrain, un formulaire (équipement concerné, description, niveau d'urgence : faible/normale/haute) déclare un incident.
+  - Une description vide est rejetée (validation testée en Vitest), les autres sont acceptées.
+  - Les incidents déclarés pour ce terrain s'affichent dans une liste sur sa fiche, sans rechargement de page (état en mémoire, pas de persistance serveur — cohérent avec le reste du prototype en dur).
+- **Hors périmètre** : suivi et clôture de l'incident (prestataire, date, résultat — itération 10), persistance (base de données, API), notification.
+- **Critères d'acceptation** :
+  - Depuis la fiche d'un terrain, un formulaire permet de déclarer un incident (équipement, description, urgence).
+  - Une description vide affiche un message d'erreur et n'ajoute pas l'incident.
+  - Un incident déclaré apparaît dans une liste "Incidents" sur la fiche du terrain, sans rechargement de page.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/incidents.ts` (nouveau), `frontend/src/data/incidents.test.ts` (nouveau), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.

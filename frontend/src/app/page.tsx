@@ -12,6 +12,12 @@ import {
   type Terrain,
 } from "../data/terrains";
 import { REGIONS_CARTE } from "../data/franceMap";
+import {
+  incidentEstValide,
+  creerIncident,
+  type Incident,
+  type Urgence,
+} from "../data/incidents";
 
 const LIBELLES_STATUT = {
   conforme: "Conforme",
@@ -28,12 +34,37 @@ export default function Home() {
   const [recherche, setRecherche] = useState("");
   const [terrainSelectionne, setTerrainSelectionne] =
     useState<Terrain | null>(null);
+  const [incidents, setIncidents] = useState<Incident[]>([]);
+  const [equipementChoisi, setEquipementChoisi] = useState("");
+  const [descriptionIncident, setDescriptionIncident] = useState("");
+  const [urgenceIncident, setUrgenceIncident] = useState<Urgence>("normale");
+  const [erreurIncident, setErreurIncident] = useState("");
   const terrainsFiltres = filtrerTerrains(terrains, recherche);
   const regions = [...new Set(terrainsFiltres.map((t) => t.region))];
   const stats = statistiques(terrains);
   const prioritaires = terrains.filter(
     (t) => statutGlobal(t.equipements) === "non-conforme",
   );
+
+  function declarerIncident() {
+    if (!terrainSelectionne) return;
+    if (!incidentEstValide(descriptionIncident)) {
+      setErreurIncident("La description de l'incident est obligatoire.");
+      return;
+    }
+    setIncidents((precedents) => [
+      ...precedents,
+      creerIncident(
+        precedents.length + 1,
+        terrainSelectionne.nom,
+        equipementChoisi,
+        descriptionIncident,
+        urgenceIncident,
+      ),
+    ]);
+    setDescriptionIncident("");
+    setErreurIncident("");
+  }
 
   return (
     <div className={styles.page}>
@@ -107,6 +138,62 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+
+            <h2 className={styles.ficheSousTitre}>Déclarer un incident</h2>
+            <div className={styles.formulaireIncident}>
+              <select
+                value={equipementChoisi}
+                onChange={(e) => setEquipementChoisi(e.target.value)}
+              >
+                {terrainSelectionne.equipements.map((e) => (
+                  <option key={e.nom} value={e.nom}>
+                    {e.nom}
+                  </option>
+                ))}
+              </select>
+              <textarea
+                placeholder="Description de l'incident"
+                value={descriptionIncident}
+                onChange={(e) => setDescriptionIncident(e.target.value)}
+              />
+              <select
+                value={urgenceIncident}
+                onChange={(e) =>
+                  setUrgenceIncident(e.target.value as Urgence)
+                }
+              >
+                <option value="faible">Urgence faible</option>
+                <option value="normale">Urgence normale</option>
+                <option value="haute">Urgence haute</option>
+              </select>
+              {erreurIncident && (
+                <p className={styles.erreurFormulaire}>{erreurIncident}</p>
+              )}
+              <button type="button" onClick={declarerIncident}>
+                Déclarer l&apos;incident
+              </button>
+            </div>
+
+            {incidents.filter((i) => i.terrainNom === terrainSelectionne.nom)
+              .length > 0 && (
+              <>
+                <h2 className={styles.ficheSousTitre}>Incidents</h2>
+                <ul className={styles.listeTerrains}>
+                  {incidents
+                    .filter((i) => i.terrainNom === terrainSelectionne.nom)
+                    .map((i) => (
+                      <li key={i.id} className={styles.terrainLigne}>
+                        <span>
+                          {i.equipementNom} — {i.description}
+                        </span>
+                        <span className={styles.statutBadge}>
+                          {i.urgence}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+              </>
+            )}
           </section>
         </main>
       ) : (
@@ -247,7 +334,12 @@ export default function Home() {
                     <li
                       key={t.nom}
                       className={styles.terrainLigne}
-                      onClick={() => setTerrainSelectionne(t)}
+                      onClick={() => {
+                        setTerrainSelectionne(t);
+                        setEquipementChoisi(t.equipements[0]?.nom ?? "");
+                        setDescriptionIncident("");
+                        setErreurIncident("");
+                      }}
                       role="button"
                       tabIndex={0}
                     >
