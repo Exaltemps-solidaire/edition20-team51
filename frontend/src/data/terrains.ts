@@ -71,12 +71,28 @@ export type Prestataire = {
   nom: string;
   ville: string;
   specialite: string;
+  zoneIntervention: string;
 };
 
 export const prestataires: Prestataire[] = [
-  { nom: "SportFix Rhône", ville: "Lyon", specialite: "Buts et agrès" },
-  { nom: "Alsace Terrains Services", ville: "Mulhouse", specialite: "Revêtements" },
-  { nom: "Nord Équipements Sportifs", ville: "Roubaix", specialite: "Paniers de basket" },
+  {
+    nom: "SportFix Rhône",
+    ville: "Lyon",
+    specialite: "Buts et agrès",
+    zoneIntervention: "Auvergne-Rhône-Alpes",
+  },
+  {
+    nom: "Alsace Terrains Services",
+    ville: "Mulhouse",
+    specialite: "Revêtements",
+    zoneIntervention: "Grand Est",
+  },
+  {
+    nom: "Nord Équipements Sportifs",
+    ville: "Roubaix",
+    specialite: "Paniers de basket",
+    zoneIntervention: "Hauts-de-France",
+  },
 ];
 
 export const terrains: Terrain[] = [

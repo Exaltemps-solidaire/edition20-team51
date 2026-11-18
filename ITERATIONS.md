@@ -320,3 +320,20 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
     - `frontend/src/data/incidents.test.ts` : mise à jour du test `creerIncident` (statut "ouvert" désormais inclus) + 6 nouveaux tests sur la clôture.
     - `frontend/src/app/page.tsx` : état de clôture par incident, badge de statut, formulaire inline de clôture, affichage figé une fois clôturé — sert les 3 critères.
     - `frontend/src/app/page.module.css` : styles `.listeIncidents`/`.incidentItem`.
+
+---
+
+## Itération 11 : fiche prestataire (annuaire enrichi)
+
+- **Plan validé** (dans le plan global à 3 itérations validé par le développeur ; confirmé « suffisamment, go »).
+- **Dans le périmètre** :
+  - Cliquer sur un prestataire dans l'onglet "Prestataires" ouvre sa fiche (nom, ville, spécialité, zone d'intervention en dur).
+  - Un bouton "Retour" referme la fiche et revient à la liste des prestataires.
+- **Hors périmètre** : lien terrain↔prestataire, historique des interventions, édition, URL dédiée (pas de routing Next).
+- **Critères d'acceptation** :
+  - Cliquer sur un prestataire affiche sa fiche (nom, ville, spécialité, zone d'intervention).
+  - Un bouton "Retour" referme la fiche sans recharger la page.
+  - `npm test` passe toujours (pas de nouvelle logique métier testable : affichage + données en dur).
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts` (champ `zoneIntervention` sur `Prestataire`), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.

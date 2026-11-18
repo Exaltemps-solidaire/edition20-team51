@@ -10,6 +10,7 @@ import {
   prestataires,
   filtrerTerrains,
   type Terrain,
+  type Prestataire,
 } from "../data/terrains";
 import { REGIONS_CARTE } from "../data/franceMap";
 import {
@@ -36,6 +37,8 @@ export default function Home() {
   const [recherche, setRecherche] = useState("");
   const [terrainSelectionne, setTerrainSelectionne] =
     useState<Terrain | null>(null);
+  const [prestataireSelectionne, setPrestataireSelectionne] =
+    useState<Prestataire | null>(null);
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [equipementChoisi, setEquipementChoisi] = useState("");
   const [descriptionIncident, setDescriptionIncident] = useState("");
@@ -123,7 +126,30 @@ export default function Home() {
         </div>
       </header>
 
-      {onglet === "prestataires" ? (
+      {onglet === "prestataires" && prestataireSelectionne ? (
+        <main className={styles.main}>
+          <button
+            type="button"
+            className={styles.retour}
+            onClick={() => setPrestataireSelectionne(null)}
+          >
+            ← Retour
+          </button>
+          <section className={styles.regionSection}>
+            <h2>{prestataireSelectionne.nom}</h2>
+            <p className={styles.prioriteLieu}>
+              {prestataireSelectionne.ville}
+            </p>
+            <p className={styles.ficheLigne}>
+              <strong>Spécialité :</strong> {prestataireSelectionne.specialite}
+            </p>
+            <p className={styles.ficheLigne}>
+              <strong>Zone d&apos;intervention :</strong>{" "}
+              {prestataireSelectionne.zoneIntervention}
+            </p>
+          </section>
+        </main>
+      ) : onglet === "prestataires" ? (
         <main className={styles.main}>
           <div className={styles.titreSection}>
             <h2>Prestataires</h2>
@@ -131,7 +157,13 @@ export default function Home() {
           <section className={styles.regionSection}>
             <ul className={styles.listeTerrains}>
               {prestataires.map((p) => (
-                <li key={p.nom} className={styles.terrainLigne}>
+                <li
+                  key={p.nom}
+                  className={styles.terrainLigne}
+                  onClick={() => setPrestataireSelectionne(p)}
+                  role="button"
+                  tabIndex={0}
+                >
                   <span>
                     {p.nom} — {p.ville}
                   </span>
