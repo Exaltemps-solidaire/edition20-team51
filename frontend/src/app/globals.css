@@ -1,6 +1,24 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Palette "Suivi des terrains" */
+  --vert-fonce: #16352a;
+  --vert-fonce-hover: #1f4a3a;
+  --vert-accent: #1f7a4d;
+  --fond-page: #f3f5f1;
+  --fond-carte: #e3eee5;
+  --carte-blanche: #ffffff;
+  --bordure: #e3e6e1;
+  --texte-principal: #15201a;
+  --texte-secondaire: #5b6b63;
+
+  --statut-conforme-bg: #dcf0e4;
+  --statut-conforme-texte: #1f7a4d;
+  --statut-surveiller-bg: #fbe8c9;
+  --statut-surveiller-texte: #8a5a00;
+  --statut-non-conforme-bg: #fbdfe0;
+  --statut-non-conforme-texte: #b3261e;
 }
 
 @media (prefers-color-scheme: dark) {

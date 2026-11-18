@@ -53,15 +53,35 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 
 ---
 
-## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 2)
+## Itération 2 : habillage visuel conforme à la maquette (demande du développeur, captures `3.jpg`/`4.jpg`)
+
+- **Plan validé** (demande hors passation, taillée en itération avec le développeur).
+- **Temps restant annoncé** : 10 minutes au total (hors déploiement), à la question posée le 2026-11-18.
+- ✂️ Ce budget ne permet qu'une seule itération de codage : carte interactive, recherche, onglets Terrains/Prestataires restent hors périmètre.
+- **Dans le périmètre** :
+  - En-tête vert foncé (titre + sous-titre) + badge « Données d'exemple ».
+  - 4 cartes de stats (Terrains suivis, Non conformes, Contrôles en retard, Réparations bloquées), calculées depuis `frontend/src/data/terrains.ts`.
+  - Bloc « À traiter en priorité » listant les terrains non conformes, en cartes.
+- **Hors périmètre** : carte France, recherche, onglets, toggle Carte/Par région, case « Afficher les prestataires », annuaire des prestataires.
+- **Critères d'acceptation** :
+  - La page `/` affiche l'en-tête vert avec titre/sous-titre et le badge « Données d'exemple ».
+  - Les 4 cartes de stats affichent des nombres cohérents avec les données en dur.
+  - Les terrains non conformes apparaissent dans un bloc « À traiter en priorité » distinct de la liste par région.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.
+
+---
+
+## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 3)
 
 1. Mettre à jour `e2e/demo.spec.ts` (reporté de l'itération 1, hors DoD).
-2. Fiche terrain : caractéristiques, situation juridique, liste des équipements.
-3. Fiche équipement : historique des contrôles et avis S / SAR / NS.
-4. Déclaration d'incident (formulaire mobile, terrain + équipement + description + urgence).
-5. Suivi et clôture de l'incident (prestataire, date, résultat).
-6. Annuaire des prestataires (écrans 1 et 2 de l'idée retenue).
-7. Carte interactive (écran 4 de l'idée retenue).
+2. Carte interactive (écran 4 de la maquette), recherche, onglets Terrains/Prestataires.
+3. Fiche terrain : caractéristiques, situation juridique, liste des équipements.
+4. Fiche équipement : historique des contrôles et avis S / SAR / NS.
+5. Déclaration d'incident (formulaire mobile, terrain + équipement + description + urgence).
+6. Suivi et clôture de l'incident (prestataire, date, résultat).
+7. Annuaire des prestataires (écrans 1 et 2 de l'idée retenue).
 8. Écran « Qui êtes-vous ? » (choix de persona, sans connexion).
 
-⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 2. À confirmer au prochain `/iteration 2` en redemandant le temps restant.
+⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 3. À confirmer au prochain `/iteration 3` en redemandant le temps restant.
