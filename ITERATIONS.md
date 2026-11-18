@@ -98,7 +98,16 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - `npm test` passe avec un test sur la fonction qui calcule le statut d'une région.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : moins d'une minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (pastille par région au pire statut, légende des 3 couleurs, test Vitest sur `statutRegion`) — vérifiés via `curl localhost:8080/` après déploiement.
+  - **Reporté** : carte SVG de la France, onglets Terrains/Prestataires, recherche (reportés à l'itération 4, voir « À venir »).
+  - **Bloqué par le harnais** : rien — `npm test` et `verifier-deployabilite.sh` passaient déjà avant le signal.
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : ajout de `statutRegion()` (pire statut des terrains d'une région) — sert le critère 1.
+    - `frontend/src/data/terrains.test.ts` : test Vitest sur `statutRegion()` — sert le critère 3.
+    - `frontend/src/app/page.tsx` : section « Vue par région » avec pastilles colorées et légende — sert les critères 1 et 2.
+    - `frontend/src/app/page.module.css` : styles des pastilles et de la légende.
 
 ---
 
