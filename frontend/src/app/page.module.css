@@ -472,3 +472,12 @@
   background: var(--statut-non-conforme-bg);
   color: var(--statut-non-conforme-texte);
 }
+
+.listeInfosAdmin {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

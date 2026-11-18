@@ -400,3 +400,32 @@ Les 3 points suivants restent ambigus dans le cadrage et ne sont pas codés tant
 4. Dashboard terrains (écran 3) : réordonner titre → stats → recherche (actuellement recherche avant stats), ajouter le toggle "Carte / Par région" (le contenu de "Par région" reste à clarifier avec l'équipe) et la case "Afficher les prestataires".
 5. Carte (écran 4) : marqueurs prestataires (carrés bleus) + entrée "Prestataire" dans la légende, visibles seulement si "Afficher les prestataires" est coché.
 6. "À traiter en priorité" : afficher le compte entre parenthèses (ex. "(+2)") une fois son sens confirmé par l'équipe (nombre d'équipements non conformes ? de signalements ? — à trancher, ❓).
+
+---
+
+## Itération 13 : enrichir le modèle de données du terrain (fiche administrative)
+
+- **Demande du développeur** : une liste de champs supplémentaires pour la fiche terrain — Région, Département, Ville, Quartier, Année de construction, Année de rénovation, Convention d'occupation foncière (+ date de fin), Propriété des équipements, Convention d'objectifs (+ date de fin), Sport, Nombre de terrains. Région et Ville existent déjà dans `Terrain` ; le reste est nouveau. Pas de lignes de données réelles fournies : valeurs d'exemple en dur, cohérentes avec les 5 terrains existants.
+- **Dans le périmètre** :
+  - Ajouter les champs manquants au type `Terrain` (`departement`, `quartier`, `anneeConstruction`, `anneeRenovation`, `conventionOccupationFoncier`, `dateFinConventionOccupationFoncier`, `proprieteEquipements`, `conventionObjectifs`, `dateFinConventionObjectifs`, `sport`, `nombreTerrain`), en optionnel pour ne pas casser les terrains existants si une valeur manque.
+  - Renseigner ces champs pour les 5 terrains en dur de `terrains.ts`.
+  - Afficher ces informations dans une nouvelle section "Informations administratives" sur la fiche terrain (en plus de la situation juridique déjà affichée), pour rester démontrable.
+- **Hors périmètre** : import de vraies données association, édition de ces champs, impact sur les stats/la carte (ces champs sont descriptifs, pas de statut).
+- **Critères d'acceptation** :
+  - Étant donné une fiche terrain, quand je l'ouvre, alors je vois département, quartier, années de construction/rénovation, les deux conventions avec leur date de fin, propriété des équipements, sport et nombre de terrains.
+  - Étant donné un terrain sans valeur pour un champ optionnel, quand sa fiche s'affiche, alors le champ manquant n'affiche pas "undefined" (ex. affiche "Non renseigné" ou rien).
+  - `npm test` passe toujours (pas de nouvelle logique métier : affichage + données en dur).
+- **Codage estimé** : 6 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css` (si besoin d'un style de section).
+- **Tests unitaires prévus** : aucun nouveau (pas de logique métier ajoutée, cohérent avec l'itération 11).
+- **Bilan** :
+  - **Temps restant annoncé** : 10 minutes, confirmé à la question posée avant codage.
+  - **Durée de codage réelle** : moins d'une minute (sur 6 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (section "Informations administratives" avec les 11 champs demandés sur la fiche terrain ; champs optionnels manquants affichés "Non renseigné(e)" plutôt que "undefined" ; `npm test` toujours à 18/18, pas de nouveau test car aucune logique métier ajoutée).
+  - **Reporté** : rien de nouveau pour cette itération ; la liste "À venir" de l'itération 12 reste inchangée (fiche prestataire enrichie, toggle carte/par région, marqueurs prestataires, compteur "(+2)").
+  - **Bloqué par le harnais** : rien — `verifier-deployabilite.sh` : aucune borne ; `npm test` au vert ; `signaler-version.sh 13` accepté.
+  - **Déploiement** : `frontend` seul reconstruit et republié (aucun changement côté `api`) ; vérifié par `curl localhost:8080/sante` et `localhost:8081/health` (200) et par la présence de "Informations administratives" dans le bundle JS servi. Version 13 signalée à PM Lab (`moteur_avance: false`).
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : 11 champs optionnels ajoutés à `Terrain` (département, quartier, années de construction/rénovation, convention d'occupation foncière + date de fin, propriété des équipements, convention d'objectifs + date de fin, sport, nombre de terrains), renseignés pour les 5 terrains en dur avec des valeurs d'exemple plausibles — sert les critères 1 et 2.
+    - `frontend/src/app/page.tsx` : nouvelle section "Informations administratives" sur la fiche terrain, avec repli "Non renseigné(e)" pour les champs optionnels absents — sert les 3 critères.
+    - `frontend/src/app/page.module.css` : style `.listeInfosAdmin`.

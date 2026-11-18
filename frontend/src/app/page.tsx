@@ -211,6 +211,54 @@ export default function Home() {
               <strong>Situation juridique :</strong>{" "}
               {terrainSelectionne.situationJuridique ?? "Non renseignée"}
             </p>
+
+            <h2 className={styles.ficheSousTitre}>
+              Informations administratives
+            </h2>
+            <ul className={styles.listeInfosAdmin}>
+              <li>
+                <strong>Département :</strong>{" "}
+                {terrainSelectionne.departement ?? "Non renseigné"}
+              </li>
+              <li>
+                <strong>Quartier :</strong>{" "}
+                {terrainSelectionne.quartier ?? "Non renseigné"}
+              </li>
+              <li>
+                <strong>Sport :</strong>{" "}
+                {terrainSelectionne.sport ?? "Non renseigné"}
+              </li>
+              <li>
+                <strong>Nombre de terrains :</strong>{" "}
+                {terrainSelectionne.nombreTerrain ?? "Non renseigné"}
+              </li>
+              <li>
+                <strong>Année de construction :</strong>{" "}
+                {terrainSelectionne.anneeConstruction ?? "Non renseignée"}
+              </li>
+              <li>
+                <strong>Année de rénovation :</strong>{" "}
+                {terrainSelectionne.anneeRenovation ?? "Non renseignée"}
+              </li>
+              <li>
+                <strong>Propriété des équipements :</strong>{" "}
+                {terrainSelectionne.proprieteEquipements ?? "Non renseignée"}
+              </li>
+              <li>
+                <strong>Convention d&apos;occupation foncière :</strong>{" "}
+                {terrainSelectionne.conventionOccupationFoncier ??
+                  "Non renseignée"}
+                {terrainSelectionne.dateFinConventionOccupationFoncier &&
+                  ` (fin : ${terrainSelectionne.dateFinConventionOccupationFoncier})`}
+              </li>
+              <li>
+                <strong>Convention d&apos;objectifs :</strong>{" "}
+                {terrainSelectionne.conventionObjectifs ?? "Non renseignée"}
+                {terrainSelectionne.dateFinConventionObjectifs &&
+                  ` (fin : ${terrainSelectionne.dateFinConventionObjectifs})`}
+              </li>
+            </ul>
+
             <h2 className={styles.ficheSousTitre}>Équipements</h2>
             <ul className={styles.listeTerrains}>
               {terrainSelectionne.equipements.map((e) => (
