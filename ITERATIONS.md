@@ -176,3 +176,13 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 8. Écran « Qui êtes-vous ? » (choix de persona, sans connexion).
 
 ⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 6. À confirmer au prochain `/iteration 6` en redemandant le temps restant.
+
+---
+
+## Itération 6 : annulée, temps restant insuffisant (3 minutes)
+
+- Temps restant annoncé : 3 minutes, à la question posée le 2026-11-18.
+- ✂️ 3 minutes ne couvrent pas codage + publication (~5 min observées sur les itérations précédentes) + tour de test. Aucun bug n'a été signalé par l'équipe pour justifier un correctif minimal et risqué.
+- **Décision** : pas de nouveau code. Vérification de stabilité uniquement : `npm test` au vert, `./scripts/verifier-deployabilite.sh` sans borne, `/health` et `/sante` à 200 sur 8080 et 8081.
+- **La version 5 reste la version finale montrée au pitch.** Pas de nouveau signal PM Lab (rien de nouveau à signaler).
+- **Reporté** (hors temps du hackathon) : recherche ville/code postal, `e2e/demo.spec.ts`, fiches terrain/équipement, déclaration et suivi d'incident, annuaire complet des prestataires, écran « Qui êtes-vous ? ».
