@@ -17,6 +17,15 @@ export type Terrain = {
 
 export type Statut = "conforme" | "a-surveiller" | "non-conforme";
 
+export function filtrerTerrains(liste: Terrain[], recherche: string): Terrain[] {
+  const q = recherche.trim().toLowerCase();
+  if (!q) return liste;
+  return liste.filter(
+    (t) =>
+      t.ville.toLowerCase().includes(q) || t.codePostal.includes(q),
+  );
+}
+
 export function statutGlobal(equipements: Equipement[]): Statut {
   if (equipements.some((e) => e.avis === "NS")) return "non-conforme";
   if (equipements.some((e) => e.avis === "SAR")) return "a-surveiller";

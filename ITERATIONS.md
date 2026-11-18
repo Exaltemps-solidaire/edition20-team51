@@ -186,3 +186,21 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 - **Décision** : pas de nouveau code. Vérification de stabilité uniquement : `npm test` au vert, `./scripts/verifier-deployabilite.sh` sans borne, `/health` et `/sante` à 200 sur 8080 et 8081.
 - **La version 5 reste la version finale montrée au pitch.** Pas de nouveau signal PM Lab (rien de nouveau à signaler).
 - **Reporté** (hors temps du hackathon) : recherche ville/code postal, `e2e/demo.spec.ts`, fiches terrain/équipement, déclaration et suivi d'incident, annuaire complet des prestataires, écran « Qui êtes-vous ? ».
+- **Correction** : le développeur a explicitement demandé de continuer en ignorant le temps restant annoncé. L'annulation ci-dessus est révoquée ; l'itération 6 est redétaillée et codée ci-dessous.
+
+---
+
+## Itération 6 (reprise) : recherche de terrains par ville ou code postal
+
+- **Plan validé** (développeur : « continue, oublie le temps restant »).
+- **Dans le périmètre** :
+  - Champ de recherche dans l'onglet "Terrains", filtrant les terrains affichés par ville ou code postal (sous-chaîne, insensible à la casse).
+  - Message "Aucun terrain trouvé" si la recherche ne correspond à rien, plutôt qu'une liste vide muette.
+- **Hors périmètre** : recherche par nom de terrain ou de région, recherche sur l'onglet Prestataires, mise en avant des résultats sur la carte.
+- **Critères d'acceptation** :
+  - Un champ de recherche filtre les terrains affichés (par région) par ville ou code postal.
+  - Une recherche sans correspondance affiche "Aucun terrain trouvé" au lieu d'une liste vide.
+  - `npm test` passe avec un test sur la fonction de filtrage.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.

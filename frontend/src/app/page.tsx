@@ -8,6 +8,7 @@ import {
   statistiques,
   statutRegion,
   prestataires,
+  filtrerTerrains,
 } from "../data/terrains";
 
 const LIBELLES_STATUT = {
@@ -32,7 +33,9 @@ export default function Home() {
   const [onglet, setOnglet] = useState<"terrains" | "prestataires">(
     "terrains",
   );
-  const regions = [...new Set(terrains.map((t) => t.region))];
+  const [recherche, setRecherche] = useState("");
+  const terrainsFiltres = filtrerTerrains(terrains, recherche);
+  const regions = [...new Set(terrainsFiltres.map((t) => t.region))];
   const stats = statistiques(terrains);
   const prioritaires = terrains.filter(
     (t) => statutGlobal(t.equipements) === "non-conforme",
@@ -87,6 +90,14 @@ export default function Home() {
           <h2>Terrains par région</h2>
           <span className={styles.badge}>Données d&apos;exemple</span>
         </div>
+
+        <input
+          type="text"
+          className={styles.recherche}
+          placeholder="Rechercher un terrain (ville ou code postal)"
+          value={recherche}
+          onChange={(e) => setRecherche(e.target.value)}
+        />
 
         <div className={styles.stats}>
           <div className={styles.statCarte}>
@@ -186,11 +197,15 @@ export default function Home() {
           </section>
         )}
 
+        {terrainsFiltres.length === 0 && (
+          <p className={styles.aucunResultat}>Aucun terrain trouvé.</p>
+        )}
+
         {regions.map((region) => (
           <section key={region} className={styles.regionSection}>
             <h2>{region}</h2>
             <ul className={styles.listeTerrains}>
-              {terrains
+              {terrainsFiltres
                 .filter((t) => t.region === region)
                 .map((t) => {
                   const statut = statutGlobal(t.equipements);

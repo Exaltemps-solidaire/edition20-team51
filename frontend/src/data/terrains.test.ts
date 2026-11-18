@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { statutGlobal, statistiques, statutRegion, type Terrain } from "./terrains";
+import {
+  statutGlobal,
+  statistiques,
+  statutRegion,
+  filtrerTerrains,
+  type Terrain,
+} from "./terrains";
 
 describe("statutGlobal", () => {
   it("renvoie non-conforme si un équipement a l'avis NS", () => {
@@ -83,5 +89,36 @@ describe("statutRegion", () => {
   it("renvoie le pire statut des terrains de la région", () => {
     expect(statutRegion(liste, "R1")).toBe("a-surveiller");
     expect(statutRegion(liste, "R2")).toBe("non-conforme");
+  });
+});
+
+describe("filtrerTerrains", () => {
+  const liste: Terrain[] = [
+    {
+      nom: "A",
+      region: "R",
+      ville: "Lyon",
+      codePostal: "69004",
+      equipements: [{ nom: "But", avis: "S" }],
+    },
+    {
+      nom: "B",
+      region: "R",
+      ville: "Mulhouse",
+      codePostal: "68100",
+      equipements: [{ nom: "But", avis: "S" }],
+    },
+  ];
+
+  it("filtre par ville, insensible à la casse", () => {
+    expect(filtrerTerrains(liste, "lyon")).toEqual([liste[0]]);
+  });
+
+  it("filtre par code postal", () => {
+    expect(filtrerTerrains(liste, "681")).toEqual([liste[1]]);
+  });
+
+  it("renvoie toute la liste si la recherche est vide", () => {
+    expect(filtrerTerrains(liste, "")).toEqual(liste);
   });
 });
