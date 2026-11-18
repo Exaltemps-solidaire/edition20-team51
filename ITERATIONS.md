@@ -203,4 +203,13 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - `npm test` passe avec un test sur la fonction de filtrage.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (filtre ville/code postal, message "Aucun terrain trouvé", `npm test` au vert avec 3 nouveaux tests sur `filtrerTerrains`) — vérifiés via `curl localhost:8080/` (champ de recherche présent) et lecture du code pour le comportement de filtrage.
+  - **Reporté** : rien de nouveau ; `e2e/demo.spec.ts`, fiches détaillées, incidents, annuaire complet et écran persona restent hors périmètre du hackathon tel que mené.
+  - **Bloqué par le harnais** : rien — `npm test` et `verifier-deployabilite.sh` passaient déjà avant le signal.
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : ajout de `filtrerTerrains()` (filtre par ville/code postal, insensible à la casse) — sert le critère 1.
+    - `frontend/src/data/terrains.test.ts` : 3 tests Vitest sur `filtrerTerrains()` — sert le critère 3.
+    - `frontend/src/app/page.tsx` : état `recherche`, champ de recherche, filtrage de la liste par région, message "Aucun terrain trouvé" — sert les critères 1 et 2.
+    - `frontend/src/app/page.module.css` : styles du champ de recherche et du message vide.
