@@ -310,4 +310,13 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - Un incident clôturé affiche ces 3 informations et ne propose plus de formulaire de clôture.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/incidents.ts`, `frontend/src/data/incidents.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (statut ouvert/clôturé affiché, clôture via formulaire inline sans rechargement, infos de clôture affichées sans formulaire une fois clôturé) — vérifiés par lecture du code et `npm test` (6 nouveaux tests sur `clotureEstValide`/`cloturerIncident`, 15/15 au total).
+  - **Reporté** : annuaire complet des prestataires (itération 11), écran persona, `e2e/demo.spec.ts`.
+  - **Bloqué par le harnais** : rien.
+  - **Modifications** :
+    - `frontend/src/data/incidents.ts` : ajout de `StatutIncident`, champs `statut`/`prestataire`/`date`/`resultat` sur `Incident`, `clotureEstValide()` et `cloturerIncident()` — sert les 3 critères.
+    - `frontend/src/data/incidents.test.ts` : mise à jour du test `creerIncident` (statut "ouvert" désormais inclus) + 6 nouveaux tests sur la clôture.
+    - `frontend/src/app/page.tsx` : état de clôture par incident, badge de statut, formulaire inline de clôture, affichage figé une fois clôturé — sert les 3 critères.
+    - `frontend/src/app/page.module.css` : styles `.listeIncidents`/`.incidentItem`.
