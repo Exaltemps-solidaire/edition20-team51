@@ -290,6 +290,29 @@
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid var(--bordure);
+  cursor: pointer;
+}
+
+.retour {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--vert-accent);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ficheLigne {
+  color: var(--texte-principal);
+  margin: 8px 0 16px;
+}
+
+.ficheSousTitre {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 12px 0;
 }
 
 .terrainLigne:last-child {

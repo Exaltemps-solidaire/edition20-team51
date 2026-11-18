@@ -10,6 +10,7 @@ export type Terrain = {
   region: string;
   ville: string;
   codePostal: string;
+  situationJuridique?: string;
   equipements: Equipement[];
   controleAnnuelEnRetard?: boolean;
   reparationBloquee?: boolean;
@@ -84,6 +85,7 @@ export const terrains: Terrain[] = [
     region: "Auvergne-Rhône-Alpes",
     ville: "Lyon",
     codePostal: "69004",
+    situationJuridique: "Propriété municipale",
     equipements: [
       { nom: "But de foot", avis: "S" },
       { nom: "Panier de basket", avis: "S" },
@@ -94,6 +96,7 @@ export const terrains: Terrain[] = [
     region: "Auvergne-Rhône-Alpes",
     ville: "Vaulx-en-Velin",
     codePostal: "69120",
+    situationJuridique: "Propriété municipale",
     equipements: [
       { nom: "But de foot", avis: "SAR" },
       { nom: "Agrès", avis: "S" },
@@ -105,6 +108,7 @@ export const terrains: Terrain[] = [
     region: "Auvergne-Rhône-Alpes",
     ville: "Grenoble",
     codePostal: "38100",
+    situationJuridique: "Mise à disposition associative",
     equipements: [
       { nom: "But de foot", avis: "NS" },
       { nom: "Agrès", avis: "S" },
@@ -116,6 +120,7 @@ export const terrains: Terrain[] = [
     region: "Grand Est",
     ville: "Mulhouse",
     codePostal: "68100",
+    situationJuridique: "Propriété municipale",
     equipements: [
       { nom: "But de foot", avis: "NS" },
       { nom: "Panier de basket", avis: "S" },
@@ -127,6 +132,7 @@ export const terrains: Terrain[] = [
     region: "Hauts-de-France",
     ville: "Roubaix",
     codePostal: "59100",
+    situationJuridique: "Propriété municipale",
     equipements: [{ nom: "Panier de basket", avis: "S" }],
   },
 ];

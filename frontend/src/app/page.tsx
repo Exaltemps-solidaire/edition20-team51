@@ -9,6 +9,7 @@ import {
   statutRegion,
   prestataires,
   filtrerTerrains,
+  type Terrain,
 } from "../data/terrains";
 
 const LIBELLES_STATUT = {
@@ -34,6 +35,8 @@ export default function Home() {
     "terrains",
   );
   const [recherche, setRecherche] = useState("");
+  const [terrainSelectionne, setTerrainSelectionne] =
+    useState<Terrain | null>(null);
   const terrainsFiltres = filtrerTerrains(terrains, recherche);
   const regions = [...new Set(terrainsFiltres.map((t) => t.region))];
   const stats = statistiques(terrains);
@@ -79,6 +82,37 @@ export default function Home() {
                     {p.nom} — {p.ville}
                   </span>
                   <span className={styles.statutBadge}>{p.specialite}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </main>
+      ) : terrainSelectionne ? (
+        <main className={styles.main}>
+          <button
+            type="button"
+            className={styles.retour}
+            onClick={() => setTerrainSelectionne(null)}
+          >
+            ← Retour
+          </button>
+          <section className={styles.regionSection}>
+            <h2>{terrainSelectionne.nom}</h2>
+            <p className={styles.prioriteLieu}>
+              {terrainSelectionne.ville} · {terrainSelectionne.codePostal}
+            </p>
+            <p className={styles.ficheLigne}>
+              <strong>Situation juridique :</strong>{" "}
+              {terrainSelectionne.situationJuridique ?? "Non renseignée"}
+            </p>
+            <h2 className={styles.ficheSousTitre}>Équipements</h2>
+            <ul className={styles.listeTerrains}>
+              {terrainSelectionne.equipements.map((e) => (
+                <li key={e.nom} className={styles.terrainLigne}>
+                  <span>{e.nom}</span>
+                  <span className={styles.statutBadge} data-statut-avis={e.avis}>
+                    {e.avis}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -210,7 +244,13 @@ export default function Home() {
                 .map((t) => {
                   const statut = statutGlobal(t.equipements);
                   return (
-                    <li key={t.nom} className={styles.terrainLigne}>
+                    <li
+                      key={t.nom}
+                      className={styles.terrainLigne}
+                      onClick={() => setTerrainSelectionne(t)}
+                      role="button"
+                      tabIndex={0}
+                    >
                       <span>{t.nom}</span>
                       <span
                         className={styles.statutBadge}

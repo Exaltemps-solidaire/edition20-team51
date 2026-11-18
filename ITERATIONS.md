@@ -213,3 +213,21 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
     - `frontend/src/data/terrains.test.ts` : 3 tests Vitest sur `filtrerTerrains()` — sert le critère 3.
     - `frontend/src/app/page.tsx` : état `recherche`, champ de recherche, filtrage de la liste par région, message "Aucun terrain trouvé" — sert les critères 1 et 2.
     - `frontend/src/app/page.module.css` : styles du champ de recherche et du message vide.
+
+---
+
+## Itération 7 : fiche terrain (caractéristiques, situation juridique, équipements)
+
+- **Plan validé** (développeur : « suffisamment [de temps], go »).
+- ✂️ Un seul morceau de "À venir" : la fiche terrain. Déclaration/suivi d'incident, annuaire complet des prestataires, écran persona et `e2e/demo.spec.ts` restent hors périmètre.
+- **Dans le périmètre** :
+  - Cliquer sur un terrain dans la liste par région ouvre sa fiche : ville, code postal, situation juridique (nouveau champ en dur), liste des équipements avec leur avis (S/SAR/NS).
+  - Un bouton "Retour" referme la fiche et revient à la liste.
+- **Hors périmètre** : édition de la fiche, historique des contrôles, lien vers un prestataire, URL dédiée par terrain (pas de routing Next, tout reste sur `/`).
+- **Critères d'acceptation** :
+  - Cliquer sur un terrain affiche sa fiche (ville, code postal, situation juridique, liste des équipements avec avis).
+  - Un bouton "Retour" referme la fiche sans recharger la page.
+  - `npm test` passe toujours (pas de nouvelle logique métier testable : affichage + données en dur).
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts` (champ `situationJuridique`), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.
