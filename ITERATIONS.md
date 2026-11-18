@@ -83,10 +83,29 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 
 ---
 
-## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 3)
+## Itération 3 : vue "par région" avec pastille de statut et légende (pas la carte SVG complète)
+
+- **Plan validé** (développeur : « suffisamment [de temps], go »).
+- **Temps restant annoncé** : non chiffré précisément par le développeur ; je garde le budget standard de 10 minutes de codage et m'arrête à l'alarme de 8 minutes si besoin.
+- ✂️ "Carte interactive + onglets + recherche" du point 2 de "À venir" est trop gros pour une itération : je ne garde que la vue par région avec pastille de couleur et légende. La vraie carte SVG de la France, les onglets Terrains/Prestataires et la recherche restent hors périmètre, reportés à une itération 4.
+- **Dans le périmètre** :
+  - Nouvelle section "Vue par région" : une pastille (vert/orange/rouge) par région, calculée à partir du pire statut de ses terrains.
+  - Légende couleur → statut (vert = conforme, orange = à surveiller, rouge = non conforme), reprenant les couleurs de la maquette.
+- **Hors périmètre** : carte SVG de la France, positions géographiques, onglets Terrains/Prestataires, recherche, case "Afficher les prestataires".
+- **Critères d'acceptation** :
+  - La page `/` affiche une pastille de couleur par région, correspondant au pire statut de ses terrains.
+  - Une légende affiche la correspondance entre les 3 couleurs et les 3 statuts.
+  - `npm test` passe avec un test sur la fonction qui calcule le statut d'une région.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts`, `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.
+
+---
+
+## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 4)
 
 1. Mettre à jour `e2e/demo.spec.ts` (reporté de l'itération 1, hors DoD).
-2. Carte interactive (écran 4 de la maquette), recherche, onglets Terrains/Prestataires.
+2. Vraie carte SVG de la France (positions géographiques des régions/terrains, écran 4 de la maquette), recherche, onglets Terrains/Prestataires.
 3. Fiche terrain : caractéristiques, situation juridique, liste des équipements.
 4. Fiche équipement : historique des contrôles et avis S / SAR / NS.
 5. Déclaration d'incident (formulaire mobile, terrain + équipement + description + urgence).
@@ -94,4 +113,4 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 7. Annuaire des prestataires (écrans 1 et 2 de l'idée retenue).
 8. Écran « Qui êtes-vous ? » (choix de persona, sans connexion).
 
-⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 3. À confirmer au prochain `/iteration 3` en redemandant le temps restant.
+⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 4. À confirmer au prochain `/iteration 4` en redemandant le temps restant.

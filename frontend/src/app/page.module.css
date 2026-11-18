@@ -89,6 +89,72 @@
   color: var(--statut-surveiller-texte);
 }
 
+.vueParRegion {
+  background: var(--carte-blanche);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.vueParRegion h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--texte-principal);
+  margin-bottom: 12px;
+}
+
+.pastilles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pastilleRegion {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--fond-carte);
+  color: var(--texte-principal);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.point {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.point[data-statut="conforme"] {
+  background: var(--statut-conforme-texte);
+}
+
+.point[data-statut="a-surveiller"] {
+  background: var(--statut-surveiller-texte);
+}
+
+.point[data-statut="non-conforme"] {
+  background: var(--statut-non-conforme-texte);
+}
+
+.legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--texte-secondaire);
+}
+
+.legende span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .priorite,
 .regionSection {
   background: var(--carte-blanche);

@@ -30,6 +30,22 @@ export type Statistiques = {
   reparationsBloquees: number;
 };
 
+const GRAVITE: Record<Statut, number> = {
+  conforme: 0,
+  "a-surveiller": 1,
+  "non-conforme": 2,
+};
+
+export function statutRegion(liste: Terrain[], region: string): Statut {
+  const statutsRegion = liste
+    .filter((t) => t.region === region)
+    .map((t) => statutGlobal(t.equipements));
+  return statutsRegion.reduce(
+    (pire, s) => (GRAVITE[s] > GRAVITE[pire] ? s : pire),
+    "conforme" as Statut,
+  );
+}
+
 export function statistiques(liste: Terrain[]): Statistiques {
   return {
     terrainsSuivis: liste.length,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { statutGlobal, statistiques, type Terrain } from "./terrains";
+import { statutGlobal, statistiques, statutRegion, type Terrain } from "./terrains";
 
 describe("statutGlobal", () => {
   it("renvoie non-conforme si un équipement a l'avis NS", () => {
@@ -52,5 +52,36 @@ describe("statistiques", () => {
       controlesEnRetard: 1,
       reparationsBloquees: 1,
     });
+  });
+});
+
+describe("statutRegion", () => {
+  const liste: Terrain[] = [
+    {
+      nom: "A",
+      region: "R1",
+      ville: "V",
+      codePostal: "00000",
+      equipements: [{ nom: "But", avis: "S" }],
+    },
+    {
+      nom: "B",
+      region: "R1",
+      ville: "V",
+      codePostal: "00000",
+      equipements: [{ nom: "But", avis: "SAR" }],
+    },
+    {
+      nom: "C",
+      region: "R2",
+      ville: "V",
+      codePostal: "00000",
+      equipements: [{ nom: "But", avis: "NS" }],
+    },
+  ];
+
+  it("renvoie le pire statut des terrains de la région", () => {
+    expect(statutRegion(liste, "R1")).toBe("a-surveiller");
+    expect(statutRegion(liste, "R2")).toBe("non-conforme");
   });
 });

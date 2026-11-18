@@ -1,5 +1,10 @@
 import styles from "./page.module.css";
-import { terrains, statutGlobal, statistiques } from "../data/terrains";
+import {
+  terrains,
+  statutGlobal,
+  statistiques,
+  statutRegion,
+} from "../data/terrains";
 
 const LIBELLES_STATUT = {
   conforme: "Conforme",
@@ -51,6 +56,35 @@ export default function Home() {
             </p>
           </div>
         </div>
+
+        <section className={styles.vueParRegion}>
+          <h2>Vue par région</h2>
+          <div className={styles.pastilles}>
+            {regions.map((region) => (
+              <span key={region} className={styles.pastilleRegion}>
+                <span
+                  className={styles.point}
+                  data-statut={statutRegion(terrains, region)}
+                />
+                {region}
+              </span>
+            ))}
+          </div>
+          <div className={styles.legende}>
+            <span>
+              <span className={styles.point} data-statut="conforme" />
+              Conforme, rien à signaler
+            </span>
+            <span>
+              <span className={styles.point} data-statut="a-surveiller" />
+              À surveiller / travaux en cours
+            </span>
+            <span>
+              <span className={styles.point} data-statut="non-conforme" />
+              Alerte
+            </span>
+          </div>
+        </section>
 
         {prioritaires.length > 0 && (
           <section className={styles.priorite}>
