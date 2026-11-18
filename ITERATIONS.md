@@ -152,7 +152,15 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - Cliquer sur "Terrains" réaffiche le contenu existant (stats, carte, liste par région) sans régression.
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/terrains.ts` (ajout d'une liste `prestataires` en dur), `frontend/src/app/page.tsx` (passage en composant client avec état d'onglet), `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : moins d'une minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (onglets cliquables, liste de 3 prestataires sans rechargement, contenu "Terrains" inchangé) — vérifiés par lecture du code et `curl localhost:8080/` (le rendu HTML initial affiche les deux onglets) ; le basculement client (state React) n'est pas vérifiable par `curl` seul, à confirmer par le développeur dans le navigateur.
+  - **Reporté** : recherche ville/code postal (voir "À venir").
+  - **Bloqué par le harnais** : une première tentative d'édition a cassé la structure JSX (parenthèse du ternaire manquante), détectée par le hook ESLint avant même d'arriver au test — corrigée immédiatement, pas de blocage côté signal.
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : ajout du type `Prestataire` et de la liste `prestataires` (3 entrées en dur) — sert le critère 2.
+    - `frontend/src/app/page.tsx` : passage en `"use client"`, état `onglet` (terrains/prestataires), rendu conditionnel des deux vues — sert les 3 critères.
+    - `frontend/src/app/page.module.css` : styles des onglets (actif/inactif).
 
 ---
 
