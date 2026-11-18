@@ -57,6 +57,18 @@ export function statistiques(liste: Terrain[]): Statistiques {
   };
 }
 
+export type Prestataire = {
+  nom: string;
+  ville: string;
+  specialite: string;
+};
+
+export const prestataires: Prestataire[] = [
+  { nom: "SportFix Rhône", ville: "Lyon", specialite: "Buts et agrès" },
+  { nom: "Alsace Terrains Services", ville: "Mulhouse", specialite: "Revêtements" },
+  { nom: "Nord Équipements Sportifs", ville: "Roubaix", specialite: "Paniers de basket" },
+];
+
 export const terrains: Terrain[] = [
   {
     nom: "City-stade Croix-Rousse",

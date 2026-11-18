@@ -24,6 +24,28 @@
   margin-top: 4px;
 }
 
+.onglets {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.onglet {
+  background: transparent;
+  color: #c9d7cf;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+}
+
+.onglet[data-actif="true"] {
+  background: var(--fond-page);
+  color: var(--texte-principal);
+}
+
 .main {
   width: 100%;
   max-width: 960px;

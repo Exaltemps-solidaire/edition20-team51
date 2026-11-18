@@ -1,9 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./page.module.css";
 import {
   terrains,
   statutGlobal,
   statistiques,
   statutRegion,
+  prestataires,
 } from "../data/terrains";
 
 const LIBELLES_STATUT = {
@@ -25,6 +29,9 @@ const POSITION_REGION: Record<string, { x: number; y: number }> = {
 const POSITION_PAR_DEFAUT = { x: 50, y: 50 };
 
 export default function Home() {
+  const [onglet, setOnglet] = useState<"terrains" | "prestataires">(
+    "terrains",
+  );
   const regions = [...new Set(terrains.map((t) => t.region))];
   const stats = statistiques(terrains);
   const prioritaires = terrains.filter(
@@ -36,8 +43,45 @@ export default function Home() {
       <header className={styles.header}>
         <h1>Suivi des terrains</h1>
         <p>City-stades &amp; terrains multisports</p>
+        <div className={styles.onglets}>
+          <button
+            type="button"
+            className={styles.onglet}
+            data-actif={onglet === "terrains"}
+            onClick={() => setOnglet("terrains")}
+          >
+            Terrains
+          </button>
+          <button
+            type="button"
+            className={styles.onglet}
+            data-actif={onglet === "prestataires"}
+            onClick={() => setOnglet("prestataires")}
+          >
+            Prestataires
+          </button>
+        </div>
       </header>
 
+      {onglet === "prestataires" ? (
+        <main className={styles.main}>
+          <div className={styles.titreSection}>
+            <h2>Prestataires</h2>
+          </div>
+          <section className={styles.regionSection}>
+            <ul className={styles.listeTerrains}>
+              {prestataires.map((p) => (
+                <li key={p.nom} className={styles.terrainLigne}>
+                  <span>
+                    {p.nom} — {p.ville}
+                  </span>
+                  <span className={styles.statutBadge}>{p.specialite}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </main>
+      ) : (
       <main className={styles.main}>
         <div className={styles.titreSection}>
           <h2>Terrains par région</h2>
@@ -166,6 +210,7 @@ export default function Home() {
           </section>
         ))}
       </main>
+      )}
     </div>
   );
 }

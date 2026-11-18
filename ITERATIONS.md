@@ -138,10 +138,28 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 
 ---
 
-## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 5)
+## Itération 5 : onglets Terrains / Prestataires (annuaire minimal en dur)
+
+- **Plan validé** (développeur : « suffisamment [de temps], go », malgré la demande explicite de chiffrer le temps restant — je garde donc le budget standard de 10 minutes et m'arrête à l'alarme de 8 minutes si besoin).
+- ✂️ Je ne garde que les onglets, pas la recherche (ville/code postal), qui reste hors périmètre et reportée à l'itération 6.
+- **Dans le périmètre** :
+  - Deux onglets en haut de l'écran : "Terrains" (contenu actuel : en-tête, stats, carte, priorité, liste par région) et "Prestataires" (nouvel onglet).
+  - Onglet "Prestataires" : liste simple (nom, ville, spécialité) à partir de données en dur minimales, sans annuaire complet ni fiche détaillée.
+- **Hors périmètre** : recherche, fiche détaillée d'un prestataire, lien terrain↔prestataire, filtre par région sur les prestataires.
+- **Critères d'acceptation** :
+  - La page `/` affiche deux onglets cliquables "Terrains" et "Prestataires".
+  - Cliquer sur "Prestataires" affiche une liste d'au moins 2 prestataires (nom + ville), sans recharger la page.
+  - Cliquer sur "Terrains" réaffiche le contenu existant (stats, carte, liste par région) sans régression.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts` (ajout d'une liste `prestataires` en dur), `frontend/src/app/page.tsx` (passage en composant client avec état d'onglet), `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.
+
+---
+
+## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 6)
 
 1. Mettre à jour `e2e/demo.spec.ts` (reporté de l'itération 1, hors DoD).
-2. Recherche (ville / code postal) et onglets Terrains/Prestataires.
+2. Recherche (ville / code postal).
 3. Fiche terrain : caractéristiques, situation juridique, liste des équipements.
 4. Fiche équipement : historique des contrôles et avis S / SAR / NS.
 5. Déclaration d'incident (formulaire mobile, terrain + équipement + description + urgence).
@@ -149,4 +167,4 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 7. Annuaire des prestataires (écrans 1 et 2 de l'idée retenue).
 8. Écran « Qui êtes-vous ? » (choix de persona, sans connexion).
 
-⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 5. À confirmer au prochain `/iteration 5` en redemandant le temps restant.
+⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 6. À confirmer au prochain `/iteration 6` en redemandant le temps restant.
