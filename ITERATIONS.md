@@ -345,3 +345,58 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
     - `frontend/src/data/terrains.ts` : ajout du champ `zoneIntervention` sur `Prestataire`, renseigné pour les 3 prestataires en dur.
     - `frontend/src/app/page.tsx` : état `prestataireSelectionne`, lignes de prestataire cliquables, vue fiche avec bouton "Retour" — sert les 2 premiers critères (réutilise les styles `.ficheLigne`/`.retour` de la fiche terrain, pas de nouveau CSS).
   - Pas de fichier CSS modifié (réutilisation complète des styles existants de la fiche terrain).
+
+---
+
+# Replanification — rapprochement avec les 4 écrans du cadrage
+
+- **Source du plan** : proposé par l'agent, à partir des écarts observés entre l'UI actuelle et les captures `1.jpg`–`4.jpg` (= les 4 écrans décrits dans `passation/cadrage/3-solution.md` : Annuaire des prestataires, Fiche prestataire, Dashboard du suivi des terrains, Carte interactive).
+- **Temps restant annoncé** : 20 minutes, à la question posée le 2026-11-18.
+- **Durée d'un tour de test de l'équipe** : 10 minutes.
+- **Capacité** : une itération coûte au moins codage + publication (~5 min) + tour de test (10 min). Avec 20 minutes restantes, même un codage de 3-5 minutes laisse à peine de quoi publier et faire tourner un seul tour de test.
+
+✂️ **20 minutes ne permettent qu'une seule itération**, et courte. Je détaille uniquement celle-ci ; le reste des écarts (fiche prestataire enrichie, toggle carte/par région, marqueurs prestataires sur la carte) repasse en liste "À venir", à retailler après ce tour.
+
+Les 3 points suivants restent ambigus dans le cadrage et ne sont pas codés tant qu'ils ne sont pas tranchés par l'équipe (voir « Ce qui manque » de `3-solution.md`) : ce qui se passe au clic sur un marqueur de carte ou une entrée "À traiter en priorité", le contenu du mode "Par région", le sens exact du compte entre parenthèses "(+2)".
+
+---
+
+## Itération 12 : l'annuaire des prestataires affiche la note et le niveau de fiabilité
+
+- **Dans le périmètre** :
+  - Chaque prestataire a une note sur 5 (étoiles) et un nombre de prestations réalisées (données en dur, cohérentes avec `incidents.ts`/`terrains.ts` existants).
+  - Un badge de fiabilité ("Fiable" / "Correct" / "À surveiller") est déduit de la note : ≥4 → Fiable, ≥3 → Correct, sinon À surveiller.
+  - La carte de chaque prestataire dans l'onglet "Prestataires" affiche : nom, badge, spécialité (en sous-titre), ville, étoiles, note chiffrée et nombre de prestations — conforme à `1.jpg`.
+- **Hors périmètre** : fiche prestataire enrichie (tuiles, historique, contact) — itération suivante ; toggle carte/par région ; marqueurs prestataires sur la carte.
+- **Critères d'acceptation** :
+  - Étant donné l'onglet "Prestataires", quand je consulte la liste, alors chaque carte affiche son badge de fiabilité, sa spécialité, sa note en étoiles et son nombre de prestations.
+  - Étant donné un prestataire noté 4,6/5, quand son badge est calculé, alors il affiche "Fiable" (et un prestataire noté 2,7/5 affiche "À surveiller").
+  - `npm test` passe (nouveaux tests sur la fonction de calcul du badge).
+- **Hypothèse de l'équipe couverte** : aucune (`cadrage/5-hypotheses.md` vide) — répond directement à l'écran 1 du cadrage.
+- **Codage estimé** : 5 minutes.
+- **Fichiers prévus** : `frontend/src/data/terrains.ts` (champs `note`, `nbPrestations` sur `Prestataire`, fonction `badgeFiabilite()`), `frontend/src/data/terrains.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Tests unitaires prévus** : 2-3 sur `badgeFiabilite()` (seuils Fiable/Correct/À surveiller).
+- **Étapes ajoutées à la démo** : aucune (pas de nouveau parcours cliquable, affichage seul) — `e2e/demo.spec.ts` non touché, pour garder la marge dans un temps restant de 15 minutes.
+- **Bilan** :
+  - **Temps restant annoncé** : 15 minutes, à la question posée avant codage (révisé à la baisse par rapport aux 20 min estimées en planification) — traité comme probablement la dernière itération de ce tour.
+  - **Durée de codage réelle** : moins d'une minute (sur 5 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (badge + spécialité + étoiles + note + nb de prestations sur chaque carte ; badge "Fiable"/"À surveiller" conforme aux seuils ; `npm test` à 18/18, 3 nouveaux tests sur `badgeFiabilite`).
+  - **Reporté** : tout le reste de la liste "À venir" (fiche prestataire enrichie, toggle carte/par région, marqueurs prestataires, compteur "(+2)") — inchangé, à retailler à la prochaine itération selon le temps restant alors annoncé.
+  - **Bloqué par le harnais** : rien — `verifier-deployabilite.sh` : aucune borne ; `npm test` au vert ; `signaler-version.sh 12` accepté.
+  - **Déploiement** : `frontend` seul reconstruit et republié (aucun changement côté `api`) ; vérifié par `curl localhost:8080/sante` et `localhost:8081/health` (200) et par la présence de "Annuaire des prestataires" dans le bundle JS servi. Version 12 signalée à PM Lab (`moteur_avance: false`).
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : champs `note`/`nbPrestations` sur `Prestataire`, fonction `badgeFiabilite()` (seuils Fiable ≥4 / Correct ≥3 / À surveiller sinon) — sert les critères 1 et 2.
+    - `frontend/src/data/terrains.test.ts` : 3 tests Vitest sur `badgeFiabilite()`.
+    - `frontend/src/app/page.tsx` : onglet "Prestataires" refondu en cartes (titre "Annuaire des prestataires", sous-titre, badge, spécialité, ville, étoiles, note chiffrée, nb de prestations) — sert le critère 1.
+    - `frontend/src/app/page.module.css` : styles `.sousTitre`/`.listePrestataires`/`.cartePrestataire`/`.entetePrestataire`/`.specialitePrestataire`/`.notePrestataire`/`.badgeFiabilite`.
+
+---
+
+## À venir (non détaillé, à retailler après l'itération 12)
+
+1. Fiche prestataire enrichie (écran 2) : fil d'Ariane, badge + note repris de l'itération 12, boutons "Envoyer un e-mail" / "Alerter sur WhatsApp" (liens `mailto:`/`https://wa.me/`, sans envoi réel), 4 tuiles chiffrées (prestations pour l'asso, terrains concernés, délai moyen d'intervention, réparations bloquées).
+2. Historique des prestations sur la fiche prestataire : tableau date/terrain/prestation, lié aux terrains existants.
+3. Section "Suivi & points de vigilance" sur la fiche prestataire (texte en dur si aucun sujet en cours, cohérent avec `1.jpg`/`2.jpg`).
+4. Dashboard terrains (écran 3) : réordonner titre → stats → recherche (actuellement recherche avant stats), ajouter le toggle "Carte / Par région" (le contenu de "Par région" reste à clarifier avec l'équipe) et la case "Afficher les prestataires".
+5. Carte (écran 4) : marqueurs prestataires (carrés bleus) + entrée "Prestataire" dans la légende, visibles seulement si "Afficher les prestataires" est coché.
+6. "À traiter en priorité" : afficher le compte entre parenthèses (ex. "(+2)") une fois son sens confirmé par l'équipe (nombre d'équipements non conformes ? de signalements ? — à trancher, ❓).

@@ -410,3 +410,65 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+.sousTitre {
+  color: #555;
+  margin: -8px 0 16px;
+}
+
+.listePrestataires {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cartePrestataire {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.entetePrestataire {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.entetePrestataire h3 {
+  margin: 0;
+}
+
+.specialitePrestataire {
+  color: #555;
+  margin: 4px 0;
+}
+
+.notePrestataire {
+  margin: 8px 0 0;
+  color: #b8860b;
+}
+
+.badgeFiabilite {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badgeFiabilite[data-badge="Fiable"] {
+  background: var(--statut-conforme-bg);
+  color: var(--statut-conforme-texte);
+}
+
+.badgeFiabilite[data-badge="Correct"] {
+  background: var(--statut-surveiller-bg);
+  color: var(--statut-surveiller-texte);
+}
+
+.badgeFiabilite[data-badge="À surveiller"] {
+  background: var(--statut-non-conforme-bg);
+  color: var(--statut-non-conforme-texte);
+}

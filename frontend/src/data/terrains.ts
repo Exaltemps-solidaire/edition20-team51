@@ -72,7 +72,17 @@ export type Prestataire = {
   ville: string;
   specialite: string;
   zoneIntervention: string;
+  note: number;
+  nbPrestations: number;
 };
+
+export type BadgeFiabilite = "Fiable" | "Correct" | "À surveiller";
+
+export function badgeFiabilite(note: number): BadgeFiabilite {
+  if (note >= 4) return "Fiable";
+  if (note >= 3) return "Correct";
+  return "À surveiller";
+}
 
 export const prestataires: Prestataire[] = [
   {
@@ -80,18 +90,24 @@ export const prestataires: Prestataire[] = [
     ville: "Lyon",
     specialite: "Buts et agrès",
     zoneIntervention: "Auvergne-Rhône-Alpes",
+    note: 4.6,
+    nbPrestations: 2,
   },
   {
     nom: "Alsace Terrains Services",
     ville: "Mulhouse",
     specialite: "Revêtements",
     zoneIntervention: "Grand Est",
+    note: 3.8,
+    nbPrestations: 4,
   },
   {
     nom: "Nord Équipements Sportifs",
     ville: "Roubaix",
     specialite: "Paniers de basket",
     zoneIntervention: "Hauts-de-France",
+    note: 2.7,
+    nbPrestations: 1,
   },
 ];
 

@@ -4,8 +4,24 @@ import {
   statistiques,
   statutRegion,
   filtrerTerrains,
+  badgeFiabilite,
   type Terrain,
 } from "./terrains";
+
+describe("badgeFiabilite", () => {
+  it("renvoie Fiable à partir de 4", () => {
+    expect(badgeFiabilite(4.6)).toBe("Fiable");
+    expect(badgeFiabilite(4)).toBe("Fiable");
+  });
+
+  it("renvoie Correct entre 3 et 4", () => {
+    expect(badgeFiabilite(3.8)).toBe("Correct");
+  });
+
+  it("renvoie À surveiller en dessous de 3", () => {
+    expect(badgeFiabilite(2.7)).toBe("À surveiller");
+  });
+});
 
 describe("statutGlobal", () => {
   it("renvoie non-conforme si un équipement a l'avis NS", () => {

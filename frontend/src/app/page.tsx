@@ -9,6 +9,7 @@ import {
   statutRegion,
   prestataires,
   filtrerTerrains,
+  badgeFiabilite,
   type Terrain,
   type Prestataire,
 } from "../data/terrains";
@@ -152,26 +153,45 @@ export default function Home() {
       ) : onglet === "prestataires" ? (
         <main className={styles.main}>
           <div className={styles.titreSection}>
-            <h2>Prestataires</h2>
+            <h2>Annuaire des prestataires</h2>
           </div>
-          <section className={styles.regionSection}>
-            <ul className={styles.listeTerrains}>
-              {prestataires.map((p) => (
-                <li
-                  key={p.nom}
-                  className={styles.terrainLigne}
-                  onClick={() => setPrestataireSelectionne(p)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <span>
-                    {p.nom} — {p.ville}
+          <p className={styles.sousTitre}>
+            Entreprises qui réparent et contrôlent les terrains de
+            l&apos;association, avec leur note.
+          </p>
+          <div className={styles.listePrestataires}>
+            {prestataires.map((p) => (
+              <article
+                key={p.nom}
+                className={styles.cartePrestataire}
+                onClick={() => setPrestataireSelectionne(p)}
+                role="button"
+                tabIndex={0}
+              >
+                <div className={styles.entetePrestataire}>
+                  <h3>{p.nom}</h3>
+                  <span
+                    className={styles.badgeFiabilite}
+                    data-badge={badgeFiabilite(p.note)}
+                  >
+                    {badgeFiabilite(p.note)}
                   </span>
-                  <span className={styles.statutBadge}>{p.specialite}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+                </div>
+                <p className={styles.specialitePrestataire}>
+                  {p.specialite}
+                </p>
+                <p className={styles.prioriteLieu}>{p.ville}</p>
+                <p className={styles.notePrestataire}>
+                  {"★".repeat(Math.round(p.note))}
+                  {"☆".repeat(5 - Math.round(p.note))}{" "}
+                  <strong>{p.note.toFixed(1).replace(".", ",")} / 5</strong>
+                  {" · "}
+                  {p.nbPrestations} prestation
+                  {p.nbPrestations > 1 ? "s" : ""}
+                </p>
+              </article>
+            ))}
+          </div>
         </main>
       ) : terrainSelectionne ? (
         <main className={styles.main}>
