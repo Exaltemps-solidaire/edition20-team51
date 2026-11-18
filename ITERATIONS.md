@@ -127,7 +127,14 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - `npm test` passe toujours (pas de nouvelle logique métier : positions de carte = données statiques, pas de nouveau test exigé).
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : moins d'une minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (carte SVG avec une pastille par région, couleur correspondant au statut via `statutRegion`, `npm test` toujours au vert) — vérifiés via `curl localhost:8080/` (3 `<circle>` présents) après déploiement.
+  - **Reporté** : positions géographiquement exactes, interaction, recherche, onglets Terrains/Prestataires (reportés à l'itération 5, voir « À venir »).
+  - **Bloqué par le harnais** : rien — `npm test` et `verifier-deployabilite.sh` passaient déjà avant le signal.
+  - **Modifications** :
+    - `frontend/src/app/page.tsx` : table `POSITION_REGION` (positions approximatives) et section carte SVG avec un cercle coloré par région — sert les critères 1 et 2.
+    - `frontend/src/app/page.module.css` : styles du contour et des pastilles de la carte SVG.
 
 ---
 
