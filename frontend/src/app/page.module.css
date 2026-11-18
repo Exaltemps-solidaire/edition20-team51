@@ -103,6 +103,37 @@
   margin-bottom: 12px;
 }
 
+.carte {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  margin: 0 auto 16px;
+}
+
+.carteContour {
+  fill: var(--fond-carte);
+  stroke: var(--bordure);
+  stroke-width: 1;
+}
+
+.cartePoint {
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+.cartePoint[data-statut="conforme"] {
+  fill: var(--statut-conforme-texte);
+}
+
+.cartePoint[data-statut="a-surveiller"] {
+  fill: var(--statut-surveiller-texte);
+}
+
+.cartePoint[data-statut="non-conforme"] {
+  fill: var(--statut-non-conforme-texte);
+}
+
 .pastilles {
   display: flex;
   flex-wrap: wrap;

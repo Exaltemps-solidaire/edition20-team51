@@ -111,10 +111,30 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 
 ---
 
-## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 4)
+## Itération 4 : carte SVG simplifiée de la France avec pastilles par région
+
+- **Plan validé** (développeur : « suffisamment [de temps], go »).
+- **Temps restant annoncé** : non chiffré précisément par le développeur ; budget standard de 10 minutes de codage, arrêt à l'alarme de 8 minutes si besoin.
+- ✂️ Je ne garde qu'un seul des trois morceaux du point 2 de "À venir" : la carte visuelle, la plus démonstrative au pitch. Recherche et onglets Terrains/Prestataires restent hors périmètre, reportés à une itération 5.
+- **Dans le périmètre** :
+  - Remplace la liste de pastilles de l'itération 3 par une carte SVG simplifiée de la France (positions approximatives, pas géographiquement exactes), une pastille par région présente dans les données.
+  - Couleur de la pastille = statut de la région (réutilise `statutRegion`, déjà testé à l'itération 3).
+  - La légende couleur reste visible.
+- **Hors périmètre** : positions géographiquement exactes, interaction (clic/zoom), recherche, onglets Terrains/Prestataires, affichage des prestataires sur la carte.
+- **Critères d'acceptation** :
+  - La page `/` affiche une carte SVG avec une pastille positionnée pour chaque région présente dans les données.
+  - La couleur de chaque pastille correspond au statut de sa région (vert/orange/rouge).
+  - `npm test` passe toujours (pas de nouvelle logique métier : positions de carte = données statiques, pas de nouveau test exigé).
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.
+
+---
+
+## À venir (non détaillé, à retailler selon le temps restant au début de l'itération 5)
 
 1. Mettre à jour `e2e/demo.spec.ts` (reporté de l'itération 1, hors DoD).
-2. Vraie carte SVG de la France (positions géographiques des régions/terrains, écran 4 de la maquette), recherche, onglets Terrains/Prestataires.
+2. Recherche (ville / code postal) et onglets Terrains/Prestataires.
 3. Fiche terrain : caractéristiques, situation juridique, liste des équipements.
 4. Fiche équipement : historique des contrôles et avis S / SAR / NS.
 5. Déclaration d'incident (formulaire mobile, terrain + équipement + description + urgence).
@@ -122,4 +142,4 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
 7. Annuaire des prestataires (écrans 1 et 2 de l'idée retenue).
 8. Écran « Qui êtes-vous ? » (choix de persona, sans connexion).
 
-⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 4. À confirmer au prochain `/iteration 4` en redemandant le temps restant.
+⚠️ La plateforme est maintenant démarrée et les images de base sont en cache local : les aléas de l'itération 1 (plateforme froide, rate-limit Docker Hub) ne devraient plus coûter de temps à l'itération 5. À confirmer au prochain `/iteration 5` en redemandant le temps restant.

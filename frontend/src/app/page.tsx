@@ -12,6 +12,18 @@ const LIBELLES_STATUT = {
   "non-conforme": "Non conforme",
 } as const;
 
+// Positions approximatives (pas géographiquement exactes) sur une carte 100x100.
+const POSITION_REGION: Record<string, { x: number; y: number }> = {
+  "Hauts-de-France": { x: 50, y: 12 },
+  "Grand Est": { x: 68, y: 22 },
+  "Île-de-France": { x: 48, y: 28 },
+  "Auvergne-Rhône-Alpes": { x: 62, y: 55 },
+  "Nouvelle-Aquitaine": { x: 32, y: 60 },
+  Occitanie: { x: 45, y: 75 },
+};
+
+const POSITION_PAR_DEFAUT = { x: 50, y: 50 };
+
 export default function Home() {
   const regions = [...new Set(terrains.map((t) => t.region))];
   const stats = statistiques(terrains);
@@ -58,7 +70,33 @@ export default function Home() {
         </div>
 
         <section className={styles.vueParRegion}>
-          <h2>Vue par région</h2>
+          <h2>Carte par région</h2>
+          <svg
+            viewBox="0 0 100 100"
+            className={styles.carte}
+            role="img"
+            aria-label="Carte de France avec le statut de chaque région"
+          >
+            <path
+              d="M20,15 L55,5 L80,18 L90,40 L75,60 L85,80 L55,95 L30,88 L10,65 L5,35 Z"
+              className={styles.carteContour}
+            />
+            {regions.map((region) => {
+              const { x, y } = POSITION_REGION[region] ?? POSITION_PAR_DEFAUT;
+              return (
+                <circle
+                  key={region}
+                  cx={x}
+                  cy={y}
+                  r={4}
+                  className={styles.cartePoint}
+                  data-statut={statutRegion(terrains, region)}
+                >
+                  <title>{region}</title>
+                </circle>
+              );
+            })}
+          </svg>
           <div className={styles.pastilles}>
             {regions.map((region) => (
               <span key={region} className={styles.pastilleRegion}>
