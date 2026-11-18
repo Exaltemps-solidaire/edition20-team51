@@ -230,4 +230,12 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - `npm test` passe toujours (pas de nouvelle logique métier testable : affichage + données en dur).
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/terrains.ts` (champ `situationJuridique`), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : 1 minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (clic → fiche avec ville/code postal/situation juridique/équipements, bouton Retour, `npm test` toujours au vert) — vérifiés par lecture du code et `curl localhost:8080/` (pas de régression sur la liste existante ; la fiche elle-même n'est pas dans le rendu statique initial puisqu'elle dépend d'un clic côté client).
+  - **Reporté** : déclaration/suivi d'incident, annuaire complet des prestataires, écran persona, `e2e/demo.spec.ts` (voir « À venir »).
+  - **Bloqué par le harnais** : rien, mais ajout du champ `situationJuridique` a d'abord cassé `tsc --noEmit` sur les fixtures de `terrains.test.ts` (type requis) ; corrigé en rendant le champ optionnel plutôt qu'en modifiant tous les fixtures de test.
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : ajout du champ optionnel `situationJuridique` sur `Terrain`, renseigné pour les 5 terrains en dur.
+    - `frontend/src/app/page.tsx` : état `terrainSelectionne`, lignes de terrain cliquables, vue fiche avec bouton "Retour" — sert les 2 premiers critères.
+    - `frontend/src/app/page.module.css` : styles du bouton Retour et de la fiche.
