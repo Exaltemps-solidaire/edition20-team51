@@ -293,3 +293,21 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
     - `frontend/src/data/incidents.test.ts` (nouveau) : 4 tests Vitest sur la validation et la création d'incident.
     - `frontend/src/app/page.tsx` : état `incidents`/formulaire, formulaire de déclaration sur la fiche terrain, liste "Incidents" filtrée par terrain — sert les 3 critères.
     - `frontend/src/app/page.module.css` : styles du formulaire et du message d'erreur.
+
+---
+
+## Itération 10 : suivi et clôture de l'incident
+
+- **Plan validé** (dans le plan global à 3 itérations validé par le développeur ; confirmé « suffisamment, go » à la question du temps restant).
+- **Dans le périmètre** :
+  - Chaque incident a un statut : "ouvert" (par défaut) ou "clôturé".
+  - Un incident ouvert peut être clôturé via un petit formulaire inline (prestataire, date, résultat).
+  - Un incident clôturé affiche prestataire/date/résultat et n'a plus de formulaire (non modifiable).
+- **Hors périmètre** : réouverture d'un incident clôturé, notification au prestataire, historique des modifications.
+- **Critères d'acceptation** :
+  - Chaque incident affiché indique son statut (ouvert/clôturé).
+  - Un incident ouvert peut être clôturé en renseignant prestataire, date et résultat, sans rechargement de page.
+  - Un incident clôturé affiche ces 3 informations et ne propose plus de formulaire de clôture.
+- **Codage estimé** : 10 minutes.
+- **Fichiers prévus** : `frontend/src/data/incidents.ts`, `frontend/src/data/incidents.test.ts`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Bilan** : voir ci-dessous.

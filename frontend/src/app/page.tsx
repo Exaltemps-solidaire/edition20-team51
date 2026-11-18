@@ -15,6 +15,8 @@ import { REGIONS_CARTE } from "../data/franceMap";
 import {
   incidentEstValide,
   creerIncident,
+  clotureEstValide,
+  cloturerIncident,
   type Incident,
   type Urgence,
 } from "../data/incidents";
@@ -39,6 +41,13 @@ export default function Home() {
   const [descriptionIncident, setDescriptionIncident] = useState("");
   const [urgenceIncident, setUrgenceIncident] = useState<Urgence>("normale");
   const [erreurIncident, setErreurIncident] = useState("");
+  const [incidentEnCloture, setIncidentEnCloture] = useState<number | null>(
+    null,
+  );
+  const [prestataireCloture, setPrestataireCloture] = useState("");
+  const [dateCloture, setDateCloture] = useState("");
+  const [resultatCloture, setResultatCloture] = useState("");
+  const [erreurCloture, setErreurCloture] = useState("");
   const terrainsFiltres = filtrerTerrains(terrains, recherche);
   const regions = [...new Set(terrainsFiltres.map((t) => t.region))];
   const stats = statistiques(terrains);
@@ -64,6 +73,29 @@ export default function Home() {
     ]);
     setDescriptionIncident("");
     setErreurIncident("");
+  }
+
+  function ouvrirCloture(id: number) {
+    setIncidentEnCloture(id);
+    setPrestataireCloture("");
+    setDateCloture("");
+    setResultatCloture("");
+    setErreurCloture("");
+  }
+
+  function validerCloture(incident: Incident) {
+    if (!clotureEstValide(prestataireCloture, dateCloture, resultatCloture)) {
+      setErreurCloture("Prestataire, date et résultat sont obligatoires.");
+      return;
+    }
+    setIncidents((precedents) =>
+      precedents.map((i) =>
+        i.id === incident.id
+          ? cloturerIncident(i, prestataireCloture, dateCloture, resultatCloture)
+          : i,
+      ),
+    );
+    setIncidentEnCloture(null);
   }
 
   return (
@@ -178,17 +210,68 @@ export default function Home() {
               .length > 0 && (
               <>
                 <h2 className={styles.ficheSousTitre}>Incidents</h2>
-                <ul className={styles.listeTerrains}>
+                <ul className={styles.listeIncidents}>
                   {incidents
                     .filter((i) => i.terrainNom === terrainSelectionne.nom)
                     .map((i) => (
-                      <li key={i.id} className={styles.terrainLigne}>
-                        <span>
-                          {i.equipementNom} — {i.description}
-                        </span>
-                        <span className={styles.statutBadge}>
-                          {i.urgence}
-                        </span>
+                      <li key={i.id} className={styles.incidentItem}>
+                        <div className={styles.terrainLigne}>
+                          <span>
+                            {i.equipementNom} — {i.description}
+                          </span>
+                          <span className={styles.statutBadge}>
+                            {i.statut === "ouvert" ? "Ouvert" : "Clôturé"}
+                          </span>
+                        </div>
+
+                        {i.statut === "cloture" ? (
+                          <p className={styles.ficheLigne}>
+                            Clôturé par {i.prestataire} le {i.date} —{" "}
+                            {i.resultat}
+                          </p>
+                        ) : incidentEnCloture === i.id ? (
+                          <div className={styles.formulaireIncident}>
+                            <input
+                              type="text"
+                              placeholder="Prestataire"
+                              value={prestataireCloture}
+                              onChange={(e) =>
+                                setPrestataireCloture(e.target.value)
+                              }
+                            />
+                            <input
+                              type="date"
+                              value={dateCloture}
+                              onChange={(e) => setDateCloture(e.target.value)}
+                            />
+                            <textarea
+                              placeholder="Résultat"
+                              value={resultatCloture}
+                              onChange={(e) =>
+                                setResultatCloture(e.target.value)
+                              }
+                            />
+                            {erreurCloture && (
+                              <p className={styles.erreurFormulaire}>
+                                {erreurCloture}
+                              </p>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => validerCloture(i)}
+                            >
+                              Clôturer l&apos;incident
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            className={styles.retour}
+                            onClick={() => ouvrirCloture(i.id)}
+                          >
+                            Clôturer
+                          </button>
+                        )}
                       </li>
                     ))}
                 </ul>
