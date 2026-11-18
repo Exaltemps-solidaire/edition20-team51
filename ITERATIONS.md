@@ -336,4 +336,12 @@ Ordre de priorité suivi : celui du plan de livraison de l'équipe (`passation/c
   - `npm test` passe toujours (pas de nouvelle logique métier testable : affichage + données en dur).
 - **Codage estimé** : 10 minutes.
 - **Fichiers prévus** : `frontend/src/data/terrains.ts` (champ `zoneIntervention` sur `Prestataire`), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
-- **Bilan** : voir ci-dessous.
+- **Bilan** :
+  - **Durée de codage réelle** : moins d'une minute (sur 10 estimées). Pas de dépassement.
+  - **Critères satisfaits** : les 3 (fiche avec nom/ville/spécialité/zone d'intervention, bouton Retour, `npm test` toujours au vert à 15/15) — vérifiés par lecture du code et `curl localhost:8080/` (pas de régression, `/health`/`/sante` à 200).
+  - **Reporté** : écran persona, `e2e/demo.spec.ts` (seuls éléments restants du backlog initial de la passation).
+  - **Bloqué par le harnais** : rien.
+  - **Modifications** :
+    - `frontend/src/data/terrains.ts` : ajout du champ `zoneIntervention` sur `Prestataire`, renseigné pour les 3 prestataires en dur.
+    - `frontend/src/app/page.tsx` : état `prestataireSelectionne`, lignes de prestataire cliquables, vue fiche avec bouton "Retour" — sert les 2 premiers critères (réutilise les styles `.ficheLigne`/`.retour` de la fiche terrain, pas de nouveau CSS).
+  - Pas de fichier CSS modifié (réutilisation complète des styles existants de la fiche terrain).
